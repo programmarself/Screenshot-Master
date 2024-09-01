@@ -13,7 +13,7 @@ from os.path import exists
 
 # Streamlit Page Configuration
 st.set_page_config(page_title="Screenshot Master", layout="wide")
-st.title('🎈 Screenshot Master')
+st.title(' Screenshot Master')
 st.markdown("""
     <style>
     .big-font {
