@@ -97,7 +97,7 @@ with st.sidebar:
     st.caption(f'RAM Usage: {ram_usage}%')
 
 with st.form("url_form"):
-    app_url = st.text_input('App URL', 'https://langchain-quickstart.streamlit.app').rstrip('/')
+    app_url = st.text_input('App URL', 'https://flowcv.me/ikm').rstrip('/')
     app_name = app_url.replace('https://','').replace('.streamlit.app','')
     submit_button = st.form_submit_button("Capture Screenshot")
 
