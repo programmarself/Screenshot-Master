@@ -1,10 +1,8 @@
 ﻿import streamlit as st
 import time
 import psutil
-import random
 import os
 from PIL import Image, ImageDraw, ImageOps
-from PIL.Image import Resampling
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -14,8 +12,8 @@ from selenium.webdriver.common.by import By
 from os.path import exists
 
 # Streamlit Page Configuration
-st.set_page_config(page_title=" Screenshot Master", layout="wide")
-st.title('🎈 Screen Master')
+st.set_page_config(page_title="Screenshot Master", layout="wide")
+st.title('🎈 Screenshot Master')
 st.markdown("""
     <style>
     .big-font {
@@ -55,13 +53,14 @@ def add_corners(im, rad):
     return im
 
 def generate_app_image():
-    bg_img = Image.open(f'background/background-{random.randint(1,100):02d}.jpeg')
     app_img = Image.open('screenshot.png')
 
+    # Create a blank white image
     img = Image.new('RGB', app_img.size, color='white')
     img = add_corners(img, 24)
     img.save('rect.png')
 
+    # Resize and crop the app image
     resized_app_img = app_img.resize((int(app_img.width * 0.95), int(app_img.height * 0.95)))
     resized_app_img = ImageOps.crop(resized_app_img, (0, 4, 0, 0))
     resized_app_img = add_corners(resized_app_img, 24)
@@ -69,17 +68,15 @@ def generate_app_image():
     img.paste(resized_app_img, (int(resized_app_img.width * 0.025), int(resized_app_img.width * 0.035)), resized_app_img)
     img.save('app_rect.png')
 
-    resized_img = img.resize((int(bg_img.width * 0.9), int(bg_img.height * 0.9)))
-    bg_img.paste(resized_img, (int(bg_img.width * 0.05), int(bg_img.height * 0.06)), resized_img)
-
+    # Add Streamlit logo if selected
     if streamlit_logo:
         logo_img = Image.open('streamlit-logo.png').convert('RGBA')
         logo_img.thumbnail((logo_width, logo_width), Image.LANCZOS)
-        logo_position = (bg_img.width - logo_img.width - 10, bg_img.height - logo_img.height - 10)
-        bg_img.paste(logo_img, logo_position, logo_img)
+        logo_position = (img.width - logo_img.width - 10, img.height - logo_img.height - 10)
+        img.paste(logo_img, logo_position, logo_img)
     
-    bg_img.save('final.png')
-    st.image(bg_img)
+    img.save('final.png')
+    st.image(img)
 
 # Sidebar and Input Form
 with st.sidebar:
