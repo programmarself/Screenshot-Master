@@ -14,7 +14,7 @@ from selenium.webdriver.common.by import By
 from os.path import exists
 
 # Streamlit Page Configuration
-st.set_page_config(page_title=" Screen Master", layout="wide")
+st.set_page_config(page_title="🎈 Screen Master", layout="wide")
 st.title('🎈 Screen Master')
 st.markdown("""
     <style>
@@ -74,7 +74,7 @@ def generate_app_image():
 
     if streamlit_logo:
         logo_img = Image.open('streamlit-logo.png').convert('RGBA')
-        logo_img.thumbnail([sys.maxsize, logo_width], Resampling.LANCZOS)
+        logo_img.thumbnail([sys.maxsize, logo_width], Image.LANCZOS)  # Updated line
         bg_img.paste(logo_img, (logo_horizontal_placement, logo_vertical_placement), logo_img)
     
     bg_img.save('final.png')
