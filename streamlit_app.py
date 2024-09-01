@@ -14,7 +14,7 @@ from selenium.webdriver.common.by import By
 from os.path import exists
 
 # Streamlit Page Configuration
-st.set_page_config(page_title="🎈 Screen Master", layout="wide")
+st.set_page_config(page_title=" Screenshot Master", layout="wide")
 st.title('🎈 Screen Master')
 st.markdown("""
     <style>
@@ -74,8 +74,9 @@ def generate_app_image():
 
     if streamlit_logo:
         logo_img = Image.open('streamlit-logo.png').convert('RGBA')
-        logo_img.thumbnail((logo_width, logo_width), Image.LANCZOS)  # Corrected line
-        bg_img.paste(logo_img, (logo_horizontal_placement, logo_vertical_placement), logo_img)
+        logo_img.thumbnail((logo_width, logo_width), Image.LANCZOS)
+        logo_position = (bg_img.width - logo_img.width - 10, bg_img.height - logo_img.height - 10)
+        bg_img.paste(logo_img, logo_position, logo_img)
     
     bg_img.save('final.png')
     st.image(bg_img)
@@ -91,8 +92,6 @@ with st.sidebar:
     with st.expander('Streamlit Logo'):
         streamlit_logo = st.checkbox('Add Streamlit logo', value=True, key='streamlit_logo')
         logo_width = st.slider('Logo Width', 0, 500, 100, step=10)
-        logo_vertical_placement = st.slider('Vertical Placement', 0, 1000, 670, step=10)
-        logo_horizontal_placement = st.slider('Horizontal Placement', 0, 1800, 80, step=10)
 
     ram_usage = psutil.virtual_memory()[2]
     st.caption(f'RAM Usage: {ram_usage}%')
