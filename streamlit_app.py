@@ -74,7 +74,7 @@ def generate_app_image():
 
     if streamlit_logo:
         logo_img = Image.open('streamlit-logo.png').convert('RGBA')
-        logo_img.thumbnail([sys.maxsize, logo_width], Image.LANCZOS)  # Updated line
+        logo_img.thumbnail((logo_width, logo_width), Image.LANCZOS)  # Corrected line
         bg_img.paste(logo_img, (logo_horizontal_placement, logo_vertical_placement), logo_img)
     
     bg_img.save('final.png')
