@@ -114,3 +114,13 @@ if exists('screenshot.png'):
         )
         os.remove('screenshot.png')
         os.remove('final.png')
+
+# Footer
+st.markdown("""
+    <div class="footer">
+        Developed By: Irfan Ullah Khan<br>
+        <a href="https://flowcv.me/ikm">https://flowcv.me/ikm</a><br>
+        Developed For: Essential Generative AI Training<br>
+        Conducted By: PAK ANGELS, iCodeGuru, ASPIRE PAKISTAN
+    </div>
+""", unsafe_allow_html=True)
